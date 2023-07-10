@@ -1,0 +1,121 @@
+<div *ngIf="isLoading">
+    <app-spinner></app-spinner>
+</div>
+<div *ngIf="!isLoading">
+    <div class="row" style="padding-bottom: 56px; width: 102%; position: fixed;">
+        <div class="col-12">
+            <app-header></app-header>
+        </div>
+    </div>
+
+    <div class="container" style="padding-top: 56px;">
+
+        <div class="row">
+            <div class="col-3" >
+                <div class="card" style="width: 18rem; overflow: auto; position: fixed;">
+                    <div class="container">
+                        <img [src]="currentUserImageUrl" class="card-img-top" alt="..."
+                            style="border-radius: 150px; height: 260px; width: 260px;">
+
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{currentUserFirstName + " " + currentUserLastName | titlecase}}</h5>
+                        <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Chartered Accountant</li>
+                                <li class="list-group-item">Lives in Mumbai</li>
+
+                            </ul>
+                        </li>
+
+                        <li class="list-group-item">{{allFriendsCount}} connections</li>
+                        <li class="list-group-item">{{totalPostCount}} Posts</li>
+
+                    </ul>
+                    <!-- <div class="card-body">
+                  <a href="#" class="card-link">Card link</a>
+                  <a href="#" class="card-link">Another link</a>
+                </div> -->
+                </div>
+
+            </div>
+            <div class="col-2">
+
+            </div>
+            <div class="col-7">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-12">
+                                <h3> All Users</h3>
+                            </div>
+                        </div>
+
+                        <div class="card " style="width: 35rem;" *ngFor="let user of allUsersData">
+
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div class="container">
+                                            <img src="../../../assets/salman.jpg" class="card-img-top" alt="..."
+                                                style="border-radius: 150px; height: 90px; width: 90px;">
+                                        </div>
+                                    </div>
+                                    <div class="col-8">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item">
+                                                <ul class="list-group list-group-flush">
+                                                    <li class="list-group-item">{{user.firstName + ' ' + user.lastName |
+                                                        titlecase}}</li>
+                                                    <!-- <li *ngIf="user || user.state" class="list-group-item">Lives in {{user.city + " "+user.state}}</li> -->
+                                                    <li class="list-group-item">
+                                                        <button class="btn btn-primary"
+                                                            (click)="blockUnblockUser(user)">{{user.isActive?'Block
+                                                            User':'Unblock User'}}</button>
+                                                        <button style="margin-left: 5px;" class="btn btn-primary"
+                                                            (click)="makeRemoveAdmin(user)">{{user.isAdmin?'Remove as
+                                                            Admin':'Make as Admin'}}</button>
+
+                                                    </li>
+                                                </ul>
+                                            </li>
+
+
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+                            </div>
+
+                            <!-- <mat-card class="example-card" *ngFor="let post of posts">
+                        <mat-card-header>
+                            <div mat-card-avatar class="example-header-image"></div>
+                            <mat-card-title>Ayush Agarwal</mat-card-title>
+                             <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
+                            <!-- </mat-card-header>
+                        <mat-card-content>
+                            <p>
+                                The Indian Space Research Organization (#ISRO) has announced that #Chandrayaan3, India's
+                                third lunar
+                                mission, is scheduled to launch on either July 12 or July 13 at 2:30 pm.
+                            </p>
+                        </mat-card-content>
+                        <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+                            alt="Photo of a Shiba Inu"> -->
+
+                            <!-- <mat-card-actions> -->
+                            <!-- <mat-icon svgIcon="thumbs-up" aria-hidden="false" aria-label="Example thumbs up SVG icon">hhhhhhhhh</mat-icon> -->
+                            <!-- <button mat-button>LIKE</button>
+                            <button mat-button>SHARE</button>
+                        </mat-card-actions>
+                    </mat-card> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

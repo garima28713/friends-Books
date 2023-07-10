@@ -1,0 +1,208 @@
+<div *ngIf="isLoading">
+    <app-spinner></app-spinner>
+</div>
+<div *ngIf="!isLoading">
+    <div class="row" style=" width: 102%; position: relative;">
+        <div class="col-12">
+            <app-header></app-header>
+        </div>
+    </div>
+
+    <mat-tab-group animationDuration="0ms">
+        <mat-tab label="Profile Settings">
+
+            <div class="container">
+                <div class="row">
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">No</th>
+                                            <th scope="col">Property</th>
+                                            <th scope="col">Value</th>
+                                            <th scope="col">Change</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">1</th>
+                                            <td>First Name</td>
+                                            <td *ngIf="fNameActive">{{currentUserData.firstName | titlecase}}</td>
+                                            <td *ngIf="!fNameActive"><input type="text" [(ngModel)]="updatedValue"
+                                                    placeholder="Enter New First Name"></td>
+                                            <td *ngIf="fNameActive"> <button type="button" class="btn btn-primary"
+                                                    (click)="updateFName(currentUserData.firstName)"><i
+                                                        class="far fa-eye">Edit</i></button>
+                                            </td>
+                                            <td *ngIf="!fNameActive"> <button *ngIf="!fNameActive" type="button"
+                                                    class="btn btn-primary" (click)="updateFNameNew()"><i
+                                                        class="far fa-eye">Update</i></button>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td>Last Name</td>
+                                            <td *ngIf="lNameActive">{{currentUserData.lastName | titlecase}}</td>
+                                            <td *ngIf="!lNameActive"><input type="text" [(ngModel)]="updatedValue"
+                                                    placeholder="Enter New Last Name"></td>
+                                            <td *ngIf="lNameActive"> <button type="button" class="btn btn-primary"
+                                                    (click)="updateLName(currentUserData.lastName)"><i
+                                                        class="far fa-eye">Edit</i></button>
+                                            </td>
+                                            <td *ngIf="!lNameActive"> <button *ngIf="!lNameActive" type="button"
+                                                    class="btn btn-primary" (click)="updateLNameNew()"><i
+                                                        class="far fa-eye">Update</i></button>
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">3</th>
+                                            <td>Email</td>
+                                            <td *ngIf="emailActive">{{currentUserData.email}}</td>
+                                            <td *ngIf="!emailActive"><input type="text" [(ngModel)]="updatedValue"
+                                                    placeholder="Enter New Email Address"></td>
+                                            <td *ngIf="emailActive"> <button type="button" class="btn btn-primary"
+                                                    (click)="updateEmail(currentUserData.email)"><i
+                                                        class="far fa-eye">Edit</i></button>
+                                            </td>
+                                            <td *ngIf="!emailActive"> <button *ngIf="!emailActive" type="button"
+                                                    class="btn btn-primary" (click)="updateEmailNew()"><i
+                                                        class="far fa-eye">Update</i></button>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">4</th>
+                                            <td>Date of Birth</td>
+                                            <td *ngIf="dobActive">{{currentUserData.dob | date}}</td>
+                                            <td *ngIf="!dobActive"><input type="date" [(ngModel)]="updatedValue"
+                                                    placeholder="Enter New DOB"></td>
+                                            <td *ngIf="dobActive"> <button type="button" class="btn btn-primary"
+                                                    (click)="updateDob(currentUserData.dob)"><i
+                                                        class="far fa-eye">Edit</i></button>
+                                            </td>
+                                            <td *ngIf="!dobActive"> <button *ngIf="!dobActive" type="button"
+                                                    class="btn btn-primary" (click)="updateDobNew()"><i
+                                                        class="far fa-eye">Update</i></button>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">5</th>
+                                            <td>Gender</td>
+                                            <td *ngIf="genderActive">{{currentUserData.gender | titlecase}}</td>
+                                            <td *ngIf="!genderActive"><input type="text" [(ngModel)]="updatedValue"
+                                                    placeholder="Enter Gender"></td>
+                                            <td *ngIf="genderActive"> <button type="button" class="btn btn-primary"
+                                                    (click)="updateGender(currentUserData.gender)"><i
+                                                        class="far fa-eye">Edit</i></button>
+                                            </td>
+                                            <td *ngIf="!genderActive"> <button *ngIf="!genderActive" type="button"
+                                                    class="btn btn-primary" (click)="updateGenderNew()"><i
+                                                        class="far fa-eye">Update</i></button>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">6</th>
+                                            <td>Profile Image</td>
+
+                                            <td *ngIf="imageActive"> <button type="button" class="btn btn-primary"><i
+                                                        class="far fa-eye"
+                                                        (click)="updateProfileImage(currentUserData.photoId)">Edit</i></button>
+                                            </td>
+                                            <td *ngIf="!imageActive">
+                                                <input type="file" class="form-control" id="customFile"
+                                                    (change)="onImageChange($event)" name="image" />
+                                            </td>
+                                            <td *ngIf="!imageActive"> <button *ngIf="!imageActive" type="button"
+                                                    class="btn btn-primary" (click)="updateImageNew()"><i
+                                                        class="far fa-eye">Update Image</i></button>
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            {{updatedValue}}
+
+        </mat-tab>
+        <mat-tab label="Change Password">
+
+            <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet"
+                id="bootstrap-css">
+            <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+            <!-- <script src="//code.jquery.com/jquery-1.11.1.min.js"></script> -->
+            <!------ Include the above in your HEAD tag ---------->
+
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+            <div class="form-gap">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4 col-md-offset-4">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <div class="text-center">
+                                        <h3><i class="fa fa-lock fa-4x"></i></h3>
+                                        <h2 class="text-center">Reset Password</h2>
+
+                                        <div class="panel-body">
+
+                                            <form class="form" #form="ngForm" (ngSubmit)="updatePasswordSubmit()">
+
+                                                <div class="form-group">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">
+                                                            <div>New Password</div>
+                                                        </span>
+                                                        <input id="newpassword" [(ngModel)]="updatepassform.password"
+                                                            type="password" required minlength="6" maxlength="12"
+                                                            name="password" #password="ngModel" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">
+                                                            <div>Confirm Password</div>
+                                                        </span>
+                                                        <input id="confirmpassword" class="form-control" type="password"
+                                                            [(ngModel)]="obj.confirmpassword" #confirmpassword="ngModel"
+                                                            required minlength="6" maxlength="12"
+                                                            name="confirmpassword">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input name="recover-submit"
+                                                        class="btn btn-lg btn-primary btn-block" value="Reset"
+                                                        type="submit"
+                                                        [disabled]="!(form.valid && password.value === confirmpassword.value)">
+                                                </div>
+
+                                            </form>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<!-- {{updatepassform | json}}
+            {{obj | json }}
+            {{form.valid}} -->
+
+
+
+<!-- </mat-tab> -->
+<!-- </mat-tab-group> -->
