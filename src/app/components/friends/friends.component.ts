@@ -52,12 +52,8 @@ export class FriendsComponent implements OnInit {
         this._networserv.getUserByAnyUserId(friend.userId === currentuser ? friend.friendId : friend.userId).subscribe((w) => {
           this.allFriendsUserData.push(w);
           this.imageDownload(w.photoId);
-
-          console.log('operation successfull')
         })
       });
-      console.log('All Friend Requests are ', this.allFriendsData);
-      console.log('All Friend Requests are ', this.allFriendsUserData);
     })
 
     this._postservice.findPostByUserId().subscribe((d) => {
@@ -69,7 +65,6 @@ export class FriendsComponent implements OnInit {
   }
 
   getUserNameFromUserId(friendUserId: string) {
-    console.log('friends id is  ', friendUserId)
     this._networserv.getUserByAnyUserId(friendUserId).subscribe((d) => {
       console.log('Friends name are', d.firstName + ' ' + d.lastName)
     })
@@ -77,7 +72,6 @@ export class FriendsComponent implements OnInit {
 
   postImageURL: string = "";
   imageDownload(postImageId: string) {
-    console.log('Image download is called for post ', postImageId);
     if (postImageId) {
       this._postservice.getImage(postImageId).subscribe((d) => {
         this.postImageURL = URL.createObjectURL(d);
@@ -88,7 +82,6 @@ export class FriendsComponent implements OnInit {
   }
 
   imageDownloadCurrentUser(postImageId: string) {
-    // console.log('Image download is called', postImageId);
     if (postImageId) {
       this._postservice.getImage(postImageId).subscribe((d) => {
         this.currentUserImageUrl = URL.createObjectURL(d);

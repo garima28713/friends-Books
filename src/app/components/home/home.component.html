@@ -1,131 +1,166 @@
-<div *ngIf="isLoading" style="color: rgb(138, 138, 201);">
-    <app-spinner></app-spinner>
+<div *ngIf="isLoading" style="color: rgb(138, 138, 201)">
+  <app-spinner></app-spinner>
 </div>
 <div *ngIf="!isLoading">
-    <div class="row" style=" width: 102%; position: fixed;">
-        <div class="col-12">
-            <app-header></app-header>
-        </div>
-    </div>
+  <app-header></app-header>
 
-    <div class="container" style="padding-top: 56px;">
+  <div class="container" style="padding-top: 56px">
+    <div class="row">
+      <div class="col-3">
+        <div
+          class="card"
+          style="width: 18rem; overflow: hidden; position: fixed"
+        >
+          <div class="container">
+            <img
+              [src]="currentUserImageUrl"
+              class="card-img-top"
+              alt="..."
+              style="border-radius: 150px; height: 260px; width: 260px"
+            />
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">
+              {{ currentUserFirstName + " " + currentUserLastName | titlecase }}
+            </h5>
+            <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">Chartered Accountant</li>
+                <li class="list-group-item">Lives in Mumbai</li>
+              </ul>
+            </li>
 
-        <div class="row">
-            <div class="col-3">
-                <div class="card" style="width: 18rem; overflow: hidden; position: fixed;">
-                    <div class="container">
-                        <img [src]="currentUserImageUrl" class="card-img-top" alt="..."
-                            style="border-radius: 150px; height: 260px; width: 260px;">
-
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">{{currentUserFirstName + " " + currentUserLastName | titlecase}}</h5>
-                        <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">Chartered Accountant</li>
-                                <li class="list-group-item">Lives in Mumbai</li>
-
-                            </ul>
-                        </li>
-
-                        <li class="list-group-item">{{allFriendsCount}} connections</li>
-                        <li class="list-group-item">{{allPostsData.length}} Posts</li>
-                    </ul>
-                    <!-- <div class="card-body">
+            <li class="list-group-item">{{ allFriendsCount }} connections</li>
+            <li class="list-group-item">{{ allPostsData.length }} Posts</li>
+          </ul>
+          <!-- <div class="card-body">
                   <a href="#" class="card-link">Card link</a>
                   <a href="#" class="card-link">Another link</a>
                 </div> -->
-                </div>
-
-            </div>
-            <div class="col-2">
-
-            </div>
-            <div class="col-7">
-                <div class="row">
-                    <div class="col-12">
-                        <div *ngIf="isAlertEnabled" class="alert alert-success" role="alert">
-                            {{alertContent}}
-                        </div>
-                        <button (click)="createPostEnable()" style="position: relative;">Create Post</button>
-                       
-                    </div>
-                </div>
-                <div class="row" *ngIf="createPostEnabled">
-                    <div class="col-12">
-
-                        <form #formPost="ngForm" (submit)="updatePostEnabled?updatedPostSubmit():submitPost()">
-                            <div class="mb-3">
-                                <!-- <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label> -->
-                                <!-- <label class="form-label" for="customFile">Default file input example</label> -->
-                                <input type="file" class="form-control" id="customFile" (change)="onImageChange($event)"
-                                    name="image" />
-
-                                <textarea class="form-control" [(ngModel)]="data.post" name="post"
-                                    id="exampleFormControlTextarea1"
-                                    placeholder="what's on your mind, {{currentUserFirstName}}?" rows="3"></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary">{{updatePostEnabled?"update post":"
-                                Post"}}</button>
-                        </form>
-                    </div>
-                </div>
-
-                <div *ngIf="allPostsData.length === 0"><span> No Posts to Show!</span></div>
-                <div class="row">
-                    <div class="col-12">
-                        <mat-card class="example-card" *ngFor="let post of allPostsData; let idx='index'">
-                            <mat-card-header>
-                                <!-- <div mat-card-avatar class="example-header-image"></div> -->
-                                <img [src]="currentUserImageUrl" class="card-img-top" alt="..."
-                                    style="border-radius: 50px; height: 60px; width: 60px;">
-                                <!-- <mat-card-title>{{post.userName}}</mat-card-title> -->
-                                <div style="margin-left: 30px;margin-top: 10px;">
-                                    <h5>{{post.userName| titlecase}}</h5>
-                                </div>
-                                <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
-
-                                <button mat-icon-button [matMenuTriggerFor]="menu"
-                                    aria-label="Example icon-button with a menu" style="margin-left: 200px;">
-                                    <mat-icon>more_vert</mat-icon>
-                                </button>
-                                <mat-menu #menu="matMenu">
-                                    <button mat-menu-item (click)="updatePost(post)">
-                                        <!-- <mat-icon>dialpad</mat-icon> -->
-                                        <span>Update Post</span>
-                                    </button>
-                                    <button mat-menu-item (click)="deletePost(post.id)">
-                                        <!-- <mat-icon>voicemail</mat-icon> -->
-                                        <span>Delete Post</span>
-                                    </button>
-
-                                </mat-menu>
-
-
-                            </mat-card-header>
-                            <mat-card-content>
-                                <p>
-                                    {{post.post}}
-                                </p>
-                            </mat-card-content>
-                            <img [src]="postImageUrlArray[idx]" height="400px" width="500px" alt="Photo of a Shiba Inu">
-
-                            <mat-card-actions>
-
-                                <!-- <mat-icon svgIcon="thumbs-up" aria-hidden="false" aria-label="Example thumbs up SVG icon">hhhhhhhhh</mat-icon> -->
-
-                                <button mat-button>Like</button>
-                                <button mat-button>Comment</button>
-                                <button mat-button>Share</button>
-                            </mat-card-actions>
-                        </mat-card>
-                    </div>
-                </div>
-            </div>
         </div>
-    </div>
+      </div>
+      <div class="col-2"></div>
+      <div class="col-7">
+        <div class="row">
+          <div class="col-12">
+            <div
+              *ngIf="isAlertEnabled"
+              class="alert alert-success"
+              role="alert"
+            >
+              {{ alertContent }}
+            </div>
+            <button (click)="createPostEnable()" style="position: relative">
+              Create Post
+            </button>
+          </div>
+        </div>
+        <div class="row" *ngIf="createPostEnabled">
+          <div class="col-12">
+            <form
+              #formPost="ngForm"
+              (submit)="updatePostEnabled ? updatedPostSubmit() : submitPost()"
+            >
+              <div class="mb-3">
+                <!-- <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label> -->
+                <!-- <label class="form-label" for="customFile">Default file input example</label> -->
+                <input
+                  type="file"
+                  class="form-control"
+                  id="customFile"
+                  (change)="onImageChange($event)"
+                  name="image"
+                />
 
+                <textarea
+                  class="form-control"
+                  [(ngModel)]="data.post"
+                  name="post"
+                  id="exampleFormControlTextarea1"
+                  placeholder="what's on your mind, {{ currentUserFirstName }}?"
+                  rows="3"
+                ></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">
+                {{
+                  updatePostEnabled
+                    ? "update post"
+                    : "
+                                Post"
+                }}
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <div *ngIf="allPostsData.length === 0">
+          <span> No Posts to Show!</span>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <mat-card
+              class="example-card"
+              *ngFor="let post of allPostsData; let idx = index"
+            >
+              <mat-card-header>
+                <!-- <div mat-card-avatar class="example-header-image"></div> -->
+                <img
+                  [src]="currentUserImageUrl"
+                  class="card-img-top"
+                  alt="..."
+                  style="border-radius: 50px; height: 60px; width: 60px"
+                />
+                <!-- <mat-card-title>{{post.userName}}</mat-card-title> -->
+                <div style="margin-left: 30px; margin-top: 10px">
+                  <h5>{{ post.userName | titlecase }}</h5>
+                </div>
+                <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
+
+                <button
+                  mat-icon-button
+                  [matMenuTriggerFor]="menu"
+                  aria-label="Example icon-button with a menu"
+                  style="margin-left: 200px"
+                >
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item (click)="updatePost(post)">
+                    <!-- <mat-icon>dialpad</mat-icon> -->
+                    <span>Update Post</span>
+                  </button>
+                  <button mat-menu-item (click)="deletePost(post.id)">
+                    <!-- <mat-icon>voicemail</mat-icon> -->
+                    <span>Delete Post</span>
+                  </button>
+                </mat-menu>
+              </mat-card-header>
+              <mat-card-content>
+                <p>
+                  {{ post.post }}
+                </p>
+              </mat-card-content>
+              <img
+                [src]="postImageUrlArray[idx]"
+                height="400px"
+                width="500px"
+                alt="Photo of a Shiba Inu"
+              />
+
+              <mat-card-actions>
+                <!-- <mat-icon svgIcon="thumbs-up" aria-hidden="false" aria-label="Example thumbs up SVG icon">hhhhhhhhh</mat-icon> -->
+
+                <button mat-button>Like</button>
+                <button mat-button>Comment</button>
+                <button mat-button>Share</button>
+              </mat-card-actions>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

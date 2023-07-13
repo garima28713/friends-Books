@@ -20,11 +20,10 @@ export class LoginComponent {
   }
 
   loginFormSubmit(){
-    console.log("button is clicked")
     this._callapi.loginUser(this.loginform).subscribe((d:loginResponse)=>{
       if(d.token)
       {
-        console.log('User logged in successfuly');
+        console.log('login successful');
         localStorage.setItem('token',d.token);
         localStorage.setItem('currentuser',d._id);
         localStorage.setItem('role',d.isAdmin?'Admin':'NormalUser');

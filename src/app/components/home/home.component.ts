@@ -53,10 +53,8 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
 
     this.isLoading = true;
-    console.log('Inside Home Component')
 
     this._networkserv.getUserByUserId().subscribe((d) => {
-      console.log('d', d)
       this.currentUserFirstName = d.firstName;
       this.currentUserLastName = d.lastName;
       this.currentUserPhotoId = d.photoId;
@@ -79,9 +77,6 @@ export class HomeComponent implements OnInit {
         }
 
       }
-
-      console.log('Response of All posts', this.allPostsData);
-      console.log('Response of All postimage url array final ', this.postImageUrlArray);
     })
 
     this._networkserv.getAllFriendRequests().subscribe((d) => {
@@ -101,7 +96,6 @@ export class HomeComponent implements OnInit {
   }
 
   createPostEnable() {
-    console.log('button clicked')
     this.createPostEnabled = !this.createPostEnabled;
   }
 
@@ -114,25 +108,22 @@ export class HomeComponent implements OnInit {
       this.data.userName = username;
     }
     this._postservice.createPost(this.data).subscribe((d) => {
-      console.log('create post response', d);
       this.createPostEnabled = false;
       this.isAlertEnabled = true;
       this.alertContent = "Hurray! Your Post has been posted."
       
       this.isLoading = false;
       this.reloadComponent()
-      // setTimeout(() => {
-      //   this.isAlertEnabled = false;
-      //   this.alertContent = "";
-      // }, 6000);
+     /*  setTimeout(() => {
+        this.isAlertEnabled = false;
+        this.alertContent = "";
+      }, 6000); */
     })
   }
 
   deletePost(postId: string) {
-    console.log('Deleting Post', postId)
     this.isLoading = true;
     this._postservice.deletePost(postId).subscribe((d) => {
-      console.log('Response of deleted post', d);
       this._postservice.findPostByUserId().subscribe((d) => {
         this.allPostsData = d;
         console.log('Response of All posts', this.allPostsData);
@@ -144,7 +135,6 @@ export class HomeComponent implements OnInit {
   }
 
   updatePost(postObject: findAllPostsByUserIdResponse) {
-    console.log('Updating post', postObject._id);
     this.postId = postObject._id;
     this.post = postObject.post;
     this.updatePostEnabled = true;
@@ -158,10 +148,8 @@ export class HomeComponent implements OnInit {
   updatedPostSubmit() {
     this.isLoading = true;
     this._postservice.updatePost(this.postId, this.data.post).subscribe((d) => {
-      console.log('Response of updated post', d);
       this._postservice.findPostByUserId().subscribe((d) => {
         this.allPostsData = d;
-        console.log('Response of All posts', this.allPostsData);
         this.updatePostEnabled = false;
         this.createPostEnabled = false;
         this.data.post = "";
@@ -181,9 +169,7 @@ export class HomeComponent implements OnInit {
       const formData = new FormData();
       formData.append('picture', file);
       this._postservice.uploadImage(formData).subscribe((d) => {
-        console.log('Response from upload image', d);
         this.postImageId = d.uploadId;
-        console.log('post image id', this.postImageId);
         this.data.postImageId = this.postImageId;
       })
     }
@@ -191,11 +177,9 @@ export class HomeComponent implements OnInit {
 
   postImageURL: string = "";
   imageDownload(postImageId: string) {
-    console.log('Image download is called for post ', postImageId);
     if (postImageId) {
       this._postservice.getImage(postImageId).subscribe((d) => {
         this.postImageURL = URL.createObjectURL(d);
-        console.log('post image url for post ', this.postImageURL);
         this.postImageUrlArray.push(this.postImageURL)
       })
     }
@@ -203,7 +187,6 @@ export class HomeComponent implements OnInit {
 
 
   imageDownloadCurrentUser(postImageId: string) {
-    console.log('Image download is called', postImageId);
     if (postImageId) {
       this._postservice.getImage(postImageId).subscribe((d) => {
         this.currentUserImageUrl = URL.createObjectURL(d);

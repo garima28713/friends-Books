@@ -22,7 +22,6 @@ export class ForgetpasswordComponent {
   }
 
   forgetPassFormSubmit() {
-    console.log("button is clicked")
     this._callapi.findUserByEmail(this.forgetpassform).subscribe((d: forgetPassResponse[]) => {
       if (d[0].dob.toString().includes(this.obj.dob.toString())) {
         localStorage.setItem('currentuser',d[0]._id);

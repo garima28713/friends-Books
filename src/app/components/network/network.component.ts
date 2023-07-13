@@ -52,7 +52,6 @@ export class NetworkComponent implements OnInit{
     this._networserv.getAllFriendRequests().subscribe((d)=>{
       
       this.allFriendReqData = d.filter(req => (req.friendId===currentuser && req.status==='Request Pending'));
-      console.log('All Friend Requests are ', this.allFriendReqData);
       this.allFriendsCount = d.filter(req => ((req.friendId===currentuser || req.userId===currentuser) && req.status==='You are friend')).length;
 
     })
@@ -78,7 +77,6 @@ export class NetworkComponent implements OnInit{
   sendFriendRequest(friendId:string){
     this.isLoading = true;
     this._networserv.makeFriendRequest(friendId).subscribe((d)=>{
-      console.log('create friend request response ', d);
       this.friendRequestSent = true;
       this.reloadComponent();
       this.isLoading = false;
@@ -89,7 +87,6 @@ export class NetworkComponent implements OnInit{
   acceptFriendRequest(friendReqId:string, userId:string){
     this.isLoading = true;
     this._networserv.acceptFriendRequest(friendReqId,userId).subscribe((d)=>{
-      console.log('create friend request response ', d);
       this.friendRequestSent = true;
       this.reloadComponent()
       this.isLoading = false;
@@ -97,22 +94,21 @@ export class NetworkComponent implements OnInit{
     })
 
 
-    // this._networserv.getAllUsers().subscribe((d)=>{
-    //   console.log('All registered users are ', d);
-    //   this.allUsersData = d;
-    // })
+    /* this._networserv.getAllUsers().subscribe((d)=>{
+      console.log('All registered users are ', d);
+      this.allUsersData = d;
+    })
 
-    // const currentuser = localStorage.getItem('currentuser');
-    // this._networserv.getAllFriendRequests().subscribe((d)=>{
+    const currentuser = localStorage.getItem('currentuser');
+    this._networserv.getAllFriendRequests().subscribe((d)=>{
       
-    //   this.allFriendReqData = d.filter(req => (req.friendId===currentuser && req.status==='Request Pending'));
-    //   console.log('All Friend Requests are ', this.allFriendReqData);
-    // })
+      this.allFriendReqData = d.filter(req => (req.friendId===currentuser && req.status==='Request Pending'));
+      console.log('All Friend Requests are ', this.allFriendReqData);
+    }) */
   }
 
 
   imageDownloadCurrentUser(postImageId: string) {
-    // console.log('Image download is called', postImageId);
     if (postImageId) {
       this._postservice.getImage(postImageId).subscribe((d) => {
         this.currentUserImageUrl = URL.createObjectURL(d);

@@ -40,7 +40,6 @@ export class SettingComponent implements OnInit {
     this._networkserv.getUserByUserId().subscribe((d) => {
       this.currentUserData = d;
       this.isLoading = false;
-      console.log('current user data', this.currentUserData)
     })
   }
 
@@ -62,7 +61,6 @@ export class SettingComponent implements OnInit {
   }
 
   updateFName(fNameOld: string) {
-    console.log('fnameold', fNameOld)
     this.updatedValue = fNameOld;
     this.lNameActive = true;
     this.emailActive = true;
@@ -75,18 +73,12 @@ export class SettingComponent implements OnInit {
   updateFNameNew() {
     this.isLoading = true;
     this._networkserv.updateUser({ "firstName": this.updatedValue }).subscribe((d) => {
-      console.log(d)
-      // this._networkserv.getUserByUserId().subscribe((d) => {
-      //   this.currentUserData = d;
-      //   console.log('current user data', this.currentUserData)
-      // })
       this.isLoading = false;
       this.reloadComponent()
     })
   }
 
   updateLName(lNameOld: string) {
-    console.log('lNameOld', lNameOld)
     this.updatedValue = lNameOld;
     this.lNameActive = false;
     this.emailActive = true;
@@ -99,18 +91,12 @@ export class SettingComponent implements OnInit {
   updateLNameNew() {
     this.isLoading = true;
     this._networkserv.updateUser({ "lastName": this.updatedValue }).subscribe((d) => {
-      console.log(d)
-      // this._networkserv.getUserByUserId().subscribe((d) => {
-      //   this.currentUserData = d;
-      //   console.log('current user data', this.currentUserData)
-      // })
       this.isLoading = false;
       this.reloadComponent()
     })
   }
 
   updateEmail(emailOld: string) {
-    console.log('emailOld', emailOld)
     this.updatedValue = emailOld;
     this.lNameActive = true;
     this.emailActive = false;
@@ -123,11 +109,6 @@ export class SettingComponent implements OnInit {
   updateEmailNew() {
     this.isLoading = true;
     this._networkserv.updateUser({ "email": this.updatedValue }).subscribe((d) => {
-      console.log(d)
-      // this._networkserv.getUserByUserId().subscribe((d) => {
-      //   this.currentUserData = d;
-      //   console.log('current user data', this.currentUserData)
-      // })
       this.isLoading = false;
       this.reloadComponent()
 
@@ -135,7 +116,6 @@ export class SettingComponent implements OnInit {
   }
 
   updateDob(dobOld: string) {
-    console.log('dobOld', dobOld)
     this.updatedValue = dobOld;
     this.lNameActive = true;
     this.emailActive = true;
@@ -149,11 +129,6 @@ export class SettingComponent implements OnInit {
   updateDobNew() {
     this.isLoading = true;
     this._networkserv.updateUser({ "dob": this.updatedValue }).subscribe((d) => {
-      console.log(d)
-      // this._networkserv.getUserByUserId().subscribe((d) => {
-      //   this.currentUserData = d;
-      //   console.log('current user data', this.currentUserData)
-      // })
       this.isLoading = false;
       this.reloadComponent()
 
@@ -174,11 +149,6 @@ export class SettingComponent implements OnInit {
   updateGenderNew() {
     this.isLoading = true;
     this._networkserv.updateUser({ "gender": this.updatedValue }).subscribe((d) => {
-      console.log(d)
-      // this._networkserv.getUserByUserId().subscribe((d) => {
-      //   this.currentUserData = d;
-      //   console.log('current user data', this.currentUserData)
-      // })
       this.isLoading = false;
       this.reloadComponent()
 
@@ -228,7 +198,6 @@ export class SettingComponent implements OnInit {
   }
 
   updateProfileImage(imageIdOld:string){
-    console.log('Old Image Id is ', imageIdOld)
     this.lNameActive = true;
     this.emailActive = true;
     this.dobActive = true;
@@ -240,12 +209,6 @@ export class SettingComponent implements OnInit {
   updateImageNew() {
     this.isLoading = true;
     this._networkserv.updateUser({ "photoId": this.currentUserImageId }).subscribe((d) => {
-      console.log(d)
-      // this._networkserv.getUserByUserId().subscribe((d) => {
-      //   this.currentUserData = d;
-      //   console.log('current user data', this.currentUserData)
-      // })
-      console.log('User image has been updated')
       this.isLoading = false;
       this.reloadComponent()
 
